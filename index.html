@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Slavon PC — ремонт компьютеров и ноутбуков</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+  :root{
+    --bg:#12151a;
+    --bg-alt:#171b22;
+    --surface:#1e232b;
+    --surface-2:#242a33;
+    --border:#2c333d;
+    --border-soft:#252b34;
+    --copper:#e8a33d;
+    --copper-dim:#c97a3e;
+    --green:#4cd97b;
+    --red:#ff6b5c;
+    --text:#eceef1;
+    --text-dim:#9aa3af;
+    --text-mute:#6b7280;
+    --radius:14px;
+    --maxw:1180px;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{-webkit-text-size-adjust:100%; scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Manrope', system-ui, sans-serif;
+    line-height:1.5;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+    padding-bottom:env(safe-area-inset-bottom);
+  }
+  img,svg{display:block; max-width:100%;}
+  a{color:inherit; text-decoration:none;}
+  button{font-family:inherit; cursor:pointer;}
+  ul{list-style:none;}
+
+  h1,h2,h3{
+    font-family:'Unbounded', sans-serif;
+    font-weight:700;
+    line-height:1.15;
+    letter-spacing:-0.01em;
+  }
+
+  .mono{
+    font-family:'JetBrains Mono', monospace;
+  }
+
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 24px;
+  }
+
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--copper);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:7px; height:7px;
+    background:var(--copper);
+    border-radius:2px;
+    flex:none;
+  }
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(18,21,26,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border-soft);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 24px;
+    max-width:var(--maxw);
+    margin:0 auto;
+  }
+  .logo{
+    font-family:'Unbounded', sans-serif;
+    font-weight:800;
+    font-size:19px;
+    letter-spacing:-0.01em;
+    display:flex; align-items:center; gap:9px;
+  }
+  .logo-mark{
+    width:26px; height:26px;
+    border-radius:6px;
+    background:linear-gradient(145deg, var(--copper), var(--copper-dim));
+    position:relative;
+    flex:none;
+  }
+  .logo-mark::after{
+    content:"";
+    position:absolute; inset:6px;
+    border:1.5px solid rgba(18,21,26,0.55);
+    border-radius:2px;
+  }
+  .logo span{color:var(--text-dim); font-weight:600; font-size:15px;}
+  .nav-links{
+    display:flex; gap:32px;
+    font-size:14.5px; font-weight:600; color:var(--text-dim);
+  }
+  .nav-links a:hover{color:var(--text);}
+  .nav-cta{
+    background:var(--copper);
+    color:#161310;
+    padding:10px 20px;
+    border-radius:9px;
+    font-weight:700;
+    font-size:14px;
+    border:none;
+    transition:transform .15s ease, background .15s ease;
+    white-space:nowrap;
+  }
+  .nav-cta:hover{background:#f0ae4c;}
+  .nav-cta:active{transform:scale(0.97);}
+  @media(max-width:820px){ .nav-links{display:none;} }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:64px 0 56px;
+    position:relative;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.05fr 0.95fr;
+    gap:56px;
+    align-items:center;
+  }
+  @media(max-width:900px){
+    .hero-grid{ grid-template-columns:1fr; gap:40px; }
+  }
+  .hero h1{
+    font-size:clamp(32px, 5.4vw, 54px);
+    margin:18px 0 20px;
+  }
+  .hero h1 em{
+    font-style:normal;
+    color:var(--copper);
+  }
+  .hero p.lead{
+    font-size:clamp(15.5px, 2vw, 18px);
+    color:var(--text-dim);
+    max-width:52ch;
+    margin-bottom:30px;
+  }
+  .hero-actions{
+    display:flex; gap:14px; flex-wrap:wrap;
+    margin-bottom:34px;
+  }
+  .btn-primary{
+    background:var(--copper);
+    color:#161310;
+    padding:15px 26px;
+    border-radius:10px;
+    font-weight:700;
+    font-size:15.5px;
+    border:none;
+    box-shadow:0 8px 24px -8px rgba(232,163,61,0.5);
+    transition:transform .15s ease, box-shadow .15s ease;
+    min-height:48px;
+  }
+  .btn-primary:hover{ box-shadow:0 10px 28px -6px rgba(232,163,61,0.65); }
+  .btn-primary:active{ transform:scale(0.97); }
+  .btn-secondary{
+    background:transparent;
+    color:var(--text);
+    padding:15px 24px;
+    border-radius:10px;
+    font-weight:700;
+    font-size:15.5px;
+    border:1px solid var(--border);
+    min-height:48px;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .btn-secondary:hover{ border-color:var(--copper); background:rgba(232,163,61,0.06); }
+
+  .hero-stats{
+    display:flex; gap:28px; flex-wrap:wrap;
+  }
+  .hero-stat b{
+    font-family:'Unbounded', sans-serif;
+    font-size:20px;
+    display:block;
+    color:var(--text);
+  }
+  .hero-stat span{
+    font-size:12.5px;
+    color:var(--text-mute);
+  }
+
+  /* ---------- Terminal (signature element) ---------- */
+  .terminal{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 30px 60px -25px rgba(0,0,0,0.6);
+  }
+  .terminal-bar{
+    display:flex; align-items:center; gap:8px;
+    padding:12px 16px;
+    background:var(--surface-2);
+    border-bottom:1px solid var(--border);
+  }
+  .terminal-dot{ width:9px; height:9px; border-radius:50%; background:var(--border); }
+  .terminal-bar .mono{
+    margin-left:8px;
+    font-size:11.5px;
+    color:var(--text-mute);
+    letter-spacing:0.04em;
+  }
+  .terminal-body{
+    padding:22px 20px 24px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13.2px;
+    line-height:1.95;
+  }
+  .term-line{
+    display:flex; justify-content:space-between; gap:16px;
+    color:var(--text-dim);
+    opacity:0;
+    animation:termIn .45s ease forwards;
+    border-bottom:1px dashed rgba(255,255,255,0.05);
+    padding:2px 0;
+  }
+  .term-line:last-of-type{ border-bottom:none; }
+  .term-line b{ color:var(--text); font-weight:500; }
+  .term-line .ok{ color:var(--green); font-weight:600; }
+  .term-line .err{ color:var(--red); font-weight:600; }
+  .term-line:nth-child(1){animation-delay:.15s;}
+  .term-line:nth-child(2){animation-delay:.5s;}
+  .term-line:nth-child(3){animation-delay:.85s;}
+  .term-line:nth-child(4){animation-delay:1.2s;}
+  .term-line:nth-child(5){animation-delay:1.55s;}
+  .term-line:nth-child(6){animation-delay:1.9s;}
+  @keyframes termIn{
+    from{ opacity:0; transform:translateY(4px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  .term-summary{
+    margin-top:16px;
+    padding-top:16px;
+    border-top:1px solid var(--border);
+    opacity:0;
+    animation:termIn .5s ease forwards;
+    animation-delay:2.3s;
+  }
+  .term-summary .err-count{ color:var(--red); font-weight:700; }
+  .term-summary .fix{ color:var(--copper); font-weight:700; }
+  .cursor{
+    display:inline-block; width:7px; height:14px;
+    background:var(--copper);
+    margin-left:2px;
+    animation:blink 1s step-end infinite;
+    vertical-align:middle;
+  }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  @media(prefers-reduced-motion: reduce){
+    .term-line, .term-summary{ animation:none; opacity:1; }
+    .cursor{ animation:none; }
+  }
+
+  /* ---------- Trust bar ---------- */
+  .trustbar{
+    border-top:1px solid var(--border-soft);
+    border-bottom:1px solid var(--border-soft);
+    background:var(--bg-alt);
+    padding:22px 0;
+  }
+  .trustbar-inner{
+    display:flex; flex-wrap:wrap;
+    gap:16px 34px;
+    justify-content:space-between;
+  }
+  .trust-item{
+    display:flex; align-items:center; gap:10px;
+    font-size:13.5px; color:var(--text-dim); font-weight:600;
+    flex:1 1 200px;
+  }
+  .trust-item .dot{
+    width:8px; height:8px; border-radius:50%;
+    background:var(--green); flex:none;
+  }
+
+  /* ---------- Section shared ---------- */
+  section{ padding:88px 0; }
+  .section-head{ max-width:640px; margin-bottom:48px; }
+  .section-head h2{ font-size:clamp(26px,3.6vw,38px); margin-top:14px; }
+  .section-head p{ color:var(--text-dim); margin-top:14px; font-size:15.5px; }
+
+  /* ---------- Services ---------- */
+  .services-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:18px;
+  }
+  @media(max-width:900px){ .services-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media(max-width:600px){ .services-grid{ grid-template-columns:1fr; } }
+  .service-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:26px 22px;
+    transition:border-color .18s ease, transform .18s ease;
+  }
+  .service-card:hover{ border-color:var(--copper-dim); transform:translateY(-3px); }
+  .service-icon{
+    width:42px; height:42px;
+    border-radius:10px;
+    background:var(--surface-2);
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:16px;
+    color:var(--copper);
+  }
+  .service-card h3{
+    font-family:'Manrope', sans-serif;
+    font-weight:800;
+    font-size:16.5px;
+    margin-bottom:8px;
+  }
+  .service-card p{ color:var(--text-dim); font-size:14px; }
+
+  /* ---------- Process ---------- */
+  .process-list{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:0;
+    counter-reset:step;
+    position:relative;
+  }
+  @media(max-width:900px){ .process-list{ grid-template-columns:1fr; gap:22px; } }
+  .process-step{
+    position:relative;
+    padding:0 20px 0 0;
+  }
+  .process-step:not(:last-child)::after{
+    content:"";
+    position:absolute;
+    top:24px; right:-2px;
+    width:calc(100% - 44px);
+    border-top:1px dashed var(--border);
+  }
+  @media(max-width:900px){ .process-step:not(:last-child)::after{ display:none; } }
+  .step-num{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    color:var(--copper);
+    background:var(--surface);
+    border:1px solid var(--border);
+    width:46px; height:46px;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-weight:700;
+    margin-bottom:16px;
+  }
+  .process-step h3{
+    font-family:'Manrope', sans-serif;
+    font-weight:800;
+    font-size:16px;
+    margin-bottom:8px;
+  }
+  .process-step p{ color:var(--text-dim); font-size:14px; padding-right:8px; }
+
+  /* ---------- Why us ---------- */
+  .why-wrap{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:56px;
+    align-items:center;
+  }
+  @media(max-width:900px){ .why-wrap{ grid-template-columns:1fr; gap:32px; } }
+  .why-list li{
+    display:flex; gap:14px;
+    padding:18px 0;
+    border-bottom:1px solid var(--border-soft);
+  }
+  .why-list li:first-child{ padding-top:0; }
+  .why-num{
+    font-family:'JetBrains Mono', monospace;
+    color:var(--text-mute);
+    font-size:13px;
+    padding-top:2px;
+  }
+  .why-list h3{ font-family:'Manrope'; font-weight:800; font-size:15.5px; margin-bottom:4px; }
+  .why-list p{ color:var(--text-dim); font-size:14px; }
+
+  .panel{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:32px;
+  }
+  .panel .mono{ font-size:12px; color:var(--text-mute); letter-spacing:0.08em; text-transform:uppercase; }
+  .panel-row{
+    display:flex; justify-content:space-between; align-items:baseline;
+    padding:14px 0;
+    border-bottom:1px solid var(--border-soft);
+  }
+  .panel-row:last-child{ border-bottom:none; }
+  .panel-row b{ font-family:'Unbounded'; font-size:22px; color:var(--copper); }
+  .panel-row span{ font-size:13px; color:var(--text-dim); text-align:right; max-width:60%; }
+
+  /* ---------- Lead form ---------- */
+  .form-section{
+    background:var(--bg-alt);
+    border-top:1px solid var(--border-soft);
+    border-bottom:1px solid var(--border-soft);
+  }
+  .form-wrap{
+    display:grid;
+    grid-template-columns:0.9fr 1.1fr;
+    gap:56px;
+    align-items:start;
+  }
+  @media(max-width:900px){ .form-wrap{ grid-template-columns:1fr; gap:36px; } }
+  .form-side h2{ font-size:clamp(26px,3.4vw,34px); margin-top:14px; }
+  .form-side p{ color:var(--text-dim); margin-top:14px; font-size:15px; max-width:44ch; }
+  .contact-line{
+    display:flex; align-items:center; gap:12px;
+    margin-top:26px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:14.5px;
+  }
+  .contact-line .lbl{ color:var(--text-mute); font-size:12px; }
+
+  form{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:30px;
+  }
+  .field{ margin-bottom:18px; }
+  .field label{
+    display:block;
+    font-size:13px;
+    font-weight:700;
+    color:var(--text-dim);
+    margin-bottom:8px;
+  }
+  .field input,
+  .field select,
+  .field textarea{
+    width:100%;
+    background:var(--bg-alt);
+    border:1px solid var(--border);
+    border-radius:9px;
+    padding:13px 14px;
+    color:var(--text);
+    font-family:'Manrope', sans-serif;
+    font-size:15px;
+    outline:none;
+    transition:border-color .15s ease;
+    -webkit-appearance:none;
+    appearance:none;
+  }
+  .field select{
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239aa3af' stroke-width='1.6' fill='none' fill-rule='evenodd'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;
+    background-position:right 14px center;
+    padding-right:36px;
+  }
+  .field textarea{ resize:vertical; min-height:88px; font-family:'Manrope', sans-serif; }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus{ border-color:var(--copper); }
+  .field input::placeholder,
+  .field textarea::placeholder{ color:var(--text-mute); }
+
+  .row2{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  @media(max-width:520px){ .row2{ grid-template-columns:1fr; } }
+
+  .consent{
+    display:flex; align-items:flex-start; gap:11px;
+    margin:22px 0 22px;
+    cursor:pointer;
+  }
+  .consent input[type="checkbox"]{
+    appearance:none; -webkit-appearance:none;
+    width:20px; height:20px;
+    min-width:20px;
+    border:1.5px solid var(--border);
+    border-radius:5px;
+    background:var(--bg-alt);
+    position:relative;
+    cursor:pointer;
+    margin-top:1px;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .consent input[type="checkbox"]:checked{
+    background:var(--copper);
+    border-color:var(--copper);
+  }
+  .consent input[type="checkbox"]:checked::after{
+    content:"";
+    position:absolute;
+    left:6px; top:2px;
+    width:5px; height:10px;
+    border:solid #161310;
+    border-width:0 2px 2px 0;
+    transform:rotate(45deg);
+  }
+  .consent input[type="checkbox"]:focus-visible{
+    outline:2px solid var(--copper);
+    outline-offset:2px;
+  }
+  .consent span{
+    font-size:13px;
+    color:var(--text-dim);
+    line-height:1.5;
+  }
+  .consent a{ color:var(--copper); text-decoration:underline; text-underline-offset:2px; }
+
+  .submit-btn{
+    width:100%;
+    background:var(--copper);
+    color:#161310;
+    padding:16px;
+    border:none;
+    border-radius:10px;
+    font-weight:800;
+    font-size:15.5px;
+    min-height:52px;
+    transition:background .15s ease, transform .15s ease, opacity .15s ease;
+  }
+  .submit-btn:hover{ background:#f0ae4c; }
+  .submit-btn:active{ transform:scale(0.98); }
+  .submit-btn:disabled{ opacity:0.6; cursor:not-allowed; }
+
+  .form-msg{
+    margin-top:14px;
+    font-size:13.5px;
+    font-weight:600;
+    padding:12px 14px;
+    border-radius:9px;
+    display:none;
+  }
+  .form-msg.show{ display:block; }
+  .form-msg.ok{ background:rgba(76,217,123,0.1); color:var(--green); border:1px solid rgba(76,217,123,0.3); }
+  .form-msg.err{ background:rgba(255,107,92,0.1); color:var(--red); border:1px solid rgba(255,107,92,0.3); }
+
+  .field-error{
+    font-size:12px;
+    color:var(--red);
+    margin-top:6px;
+    display:none;
+  }
+  .field-error.show{ display:block; }
+  .field.invalid input,
+  .field.invalid select{ border-color:var(--red); }
+
+  /* ---------- FAQ ---------- */
+  .faq-item{
+    border-bottom:1px solid var(--border-soft);
+    padding:20px 0;
+  }
+  .faq-q{
+    display:flex; justify-content:space-between; align-items:center;
+    gap:16px;
+    cursor:pointer;
+    font-weight:700;
+    font-size:15.5px;
+  }
+  .faq-q .plus{
+    font-family:'JetBrains Mono', monospace;
+    color:var(--copper);
+    font-size:18px;
+    transition:transform .2s ease;
+    flex:none;
+  }
+  .faq-item.open .faq-q .plus{ transform:rotate(45deg); }
+  .faq-a{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .25s ease;
+    color:var(--text-dim);
+    font-size:14.5px;
+  }
+  .faq-item.open .faq-a{ max-height:200px; }
+  .faq-a-inner{ padding-top:12px; }
+
+  /* ---------- Footer ---------- */
+  footer{
+    padding:44px 0 calc(32px + env(safe-area-inset-bottom));
+    border-top:1px solid var(--border-soft);
+  }
+  .footer-inner{
+    display:flex; justify-content:space-between; align-items:center;
+    flex-wrap:wrap; gap:16px;
+  }
+  footer .mono{ font-size:12.5px; color:var(--text-mute); }
+
+  /* reveal on scroll */
+  .reveal{ opacity:0; transform:translateY(16px); transition:opacity .5s ease, transform .5s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+  @media(prefers-reduced-motion: reduce){ .reveal{ opacity:1; transform:none; transition:none; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="logo"><span class="logo-mark"></span>SLAVON<span>&nbsp;PC</span></div>
+    <nav class="nav-links">
+      <a href="#services">Услуги</a>
+      <a href="#process">Как это работает</a>
+      <a href="#faq">Вопросы</a>
+    </nav>
+    <button class="nav-cta" onclick="document.getElementById('lead-form').scrollIntoView({behavior:'smooth'})">Оставить заявку</button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">РЕМОНТ ПК И НОУТБУКОВ</div>
+      <h1>Чиним компьютеры <em>любой сложности</em> — быстро и с гарантией</h1>
+      <p class="lead">Диагностика, ремонт, апгрейд и восстановление данных. Находим настоящую причину поломки и устраняем её — а не просто снимаем симптом.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="document.getElementById('lead-form').scrollIntoView({behavior:'smooth'})">Оставить заявку</button>
+        <a href="#services" class="btn-secondary">Что я ремонтирую</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><b>Бесплатно</b><span>диагностика</span></div>
+        <div class="hero-stat"><b>Гарантия</b><span>на выполненные работы</span></div>
+        <div class="hero-stat"><b>В день заявки</b><span>для типовых поломок</span></div>
+      </div>
+    </div>
+
+    <div class="terminal">
+      <div class="terminal-bar">
+        <span class="terminal-dot" style="background:#ff6b5c"></span>
+        <span class="terminal-dot" style="background:#e8a33d"></span>
+        <span class="terminal-dot" style="background:#4cd97b"></span>
+        <span class="mono">slavon_diagnostics.exe</span>
+      </div>
+      <div class="terminal-body">
+        <div class="term-line"><span>ПРОЦЕССОР</span><b class="ok">OK</b></div>
+        <div class="term-line"><span>ОПЕРАТИВНАЯ ПАМЯТЬ</span><b class="ok">OK</b></div>
+        <div class="term-line"><span>НАКОПИТЕЛЬ (SSD/HDD)</span><b class="err">ОШИБКА</b></div>
+        <div class="term-line"><span>СИСТЕМА ОХЛАЖДЕНИЯ</span><b class="err">ПЕРЕГРЕВ</b></div>
+        <div class="term-line"><span>БЛОК ПИТАНИЯ</span><b class="ok">OK</b></div>
+        <div class="term-line"><span>ОПЕРАЦИОННАЯ СИСТЕМА</span><b class="ok">OK</b></div>
+        <div class="term-summary mono">
+          Обнаружено неисправностей: <span class="err-count">2</span><br>
+          Решение: <span class="fix">Slavon PC устранит сегодня</span><span class="cursor"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="trustbar">
+  <div class="wrap trustbar-inner">
+    <div class="trust-item"><span class="dot"></span>Бесплатная диагностика</div>
+    <div class="trust-item"><span class="dot"></span>Гарантия на все работы</div>
+    <div class="trust-item"><span class="dot"></span>Ремонт в день обращения</div>
+    <div class="trust-item"><span class="dot"></span>Оригинальные комплектующие</div>
+  </div>
+</div>
+
+<section id="services">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">УСЛУГИ</div>
+      <h2>С чем я работаю</h2>
+      <p>От чистки от пыли до сложного восстановления данных с повреждённого накопителя — беру технику в любом состоянии.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="12" rx="1.5" stroke="currentColor" stroke-width="1.7"/><path d="M8 20h8M12 16v4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Ремонт ноутбуков и ПК</h3>
+        <p>Не включается, зависает, перезагружается, синий экран — найду и устраню причину.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2v6M12 16v6M4.9 4.9l4.2 4.2M14.9 14.9l4.2 4.2M2 12h6M16 12h6M4.9 19.1l4.2-4.2M14.9 9.1l4.2-4.2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Чистка и термопаста</h3>
+        <p>Устраняю перегрев и шум кулеров: чистка от пыли, замена термопасты и термопрокладок.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="4" y="3" width="16" height="18" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M9 8h6M9 12h6M9 16h3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Апгрейд комплектующих</h3>
+        <p>Установка SSD, увеличение оперативной памяти, замена видеокарты — станет заметно быстрее.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3a9 9 0 100 18 9 9 0 000-18z" stroke="currentColor" stroke-width="1.7"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Восстановление данных</h3>
+        <p>Спасаю фото, документы и файлы с повреждённых или удалённых носителей.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2l8 4v6c0 5-3.4 8.4-8 10-4.6-1.6-8-5-8-10V6l8-4z" stroke="currentColor" stroke-width="1.7"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Вирусы и настройка ОС</h3>
+        <p>Удаляю вирусы и рекламное ПО, переустанавливаю Windows, настраиваю систему с нуля.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 12l4-8 4 8-4 8-4-8z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M13 12l4-8 4 8-4 8-4-8z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Сложные и редкие поломки</h3>
+        <p>Залитие, короткое замыкание, нестандартная диагностика — берусь за случаи, от которых отказались другие.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="process" style="background:var(--bg-alt); border-top:1px solid var(--border-soft); border-bottom:1px solid var(--border-soft);">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">ПРОЦЕСС</div>
+      <h2>Как проходит ремонт</h2>
+      <p>Прозрачный процесс в четыре шага — вы всегда знаете, что происходит с вашей техникой.</p>
+    </div>
+    <div class="process-list">
+      <div class="process-step reveal">
+        <div class="step-num">01</div>
+        <h3>Заявка</h3>
+        <p>Оставляете заявку на сайте или пишете напрямую — отвечаю в ближайшее время.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">02</div>
+        <h3>Диагностика</h3>
+        <p>Бесплатно определяю точную причину неисправности и озвучиваю стоимость ремонта.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">03</div>
+        <h3>Ремонт</h3>
+        <p>Согласовываем цену и сроки — приступаю к работе только после вашего подтверждения.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">04</div>
+        <h3>Выдача</h3>
+        <p>Тестирую устройство под нагрузкой и отдаю с гарантией на выполненные работы.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap why-wrap">
+    <div class="reveal">
+      <div class="eyebrow">ПОЧЕМУ SLAVON PC</div>
+      <h2 style="font-size:clamp(26px,3.6vw,36px); margin-top:14px;">Ремонтирую так, будто это моя техника</h2>
+      <ul class="why-list" style="margin-top:24px;">
+        <li>
+          <div class="why-num mono">01</div>
+          <div>
+            <h3>Честная диагностика</h3>
+            <p>Говорю правду о состоянии техники — даже если это значит, что ремонт вам не нужен.</p>
+          </div>
+        </li>
+        <li>
+          <div class="why-num mono">02</div>
+          <div>
+            <h3>Фиксированная цена до начала работ</h3>
+            <p>Стоимость согласовывается заранее — никаких сюрпризов при получении устройства.</p>
+          </div>
+        </li>
+        <li>
+          <div class="why-num mono">03</div>
+          <div>
+            <h3>Гарантия на выполненные работы</h3>
+            <p>Если проблема повторится по моей вине — исправлю бесплатно.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="panel reveal">
+      <div class="mono">Ориентировочные сроки</div>
+      <div class="panel-row">
+        <b>1 день</b>
+        <span>Чистка, термопаста, установка ПО, простой апгрейд</span>
+      </div>
+      <div class="panel-row">
+        <b>1–3 дня</b>
+        <span>Ремонт материнской платы, замена компонентов</span>
+      </div>
+      <div class="panel-row">
+        <b>по факту</b>
+        <span>Восстановление данных — сроки зависят от повреждения</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="form-section" id="lead-form">
+  <div class="wrap form-wrap">
+    <div class="form-side reveal">
+      <div class="eyebrow">ЗАЯВКА</div>
+      <h2>Опишите проблему — я отвечу с оценкой стоимости</h2>
+      <p>Оставьте контакты и коротко опишите, что случилось с устройством. Отвечаю в течение рабочего дня.</p>
+      <div class="contact-line">
+        <span class="lbl mono">ТЕЛ:</span> +7 995 443-13-37
+      </div>
+      <div class="contact-line">
+        <span class="lbl mono">TG:</span> @slavonpc
+      </div>
+    </div>
+
+    <form id="leadForm" novalidate>
+      <div class="row2">
+        <div class="field" id="field-name">
+          <label for="name">Имя</label>
+          <input type="text" id="name" name="name" placeholder="Как к вам обращаться" autocomplete="name">
+          <div class="field-error">Пожалуйста, укажите имя</div>
+        </div>
+        <div class="field" id="field-phone">
+          <label for="phone">Телефон</label>
+          <input type="tel" id="phone" name="phone" placeholder="+7 900 000-00-00" autocomplete="tel" inputmode="tel">
+          <div class="field-error">Укажите корректный номер телефона</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="device">Тип устройства</label>
+        <select id="device" name="device">
+          <option value="Ноутбук">Ноутбук</option>
+          <option value="Настольный ПК">Настольный ПК</option>
+          <option value="Моноблок">Моноблок</option>
+          <option value="Другое">Другое</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="problem">Опишите проблему</label>
+        <textarea id="problem" name="problem" placeholder="Например: ноутбук выключается сам по себе через 10 минут работы"></textarea>
+      </div>
+
+      <label class="consent" for="consent">
+        <input type="checkbox" id="consent" name="consent">
+        <span>Я согласен(на) на обработку персональных данных в соответствии с <a href="#" target="_blank" rel="noopener">политикой конфиденциальности</a></span>
+      </label>
+      <div class="field-error" id="consent-error">Необходимо согласие на обработку персональных данных</div>
+
+      <button type="submit" class="submit-btn" id="submitBtn">Отправить заявку</button>
+      <div class="form-msg" id="formMsg"></div>
+    </form>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap" style="max-width:760px;">
+    <div class="section-head reveal">
+      <div class="eyebrow">ВОПРОСЫ</div>
+      <h2>Частые вопросы</h2>
+    </div>
+    <div class="reveal">
+      <div class="faq-item">
+        <div class="faq-q"><span>Сколько стоит диагностика?</span><span class="plus">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Диагностика бесплатна. Вы платите только за фактический ремонт — и только после того, как согласуете стоимость.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span>Можно ли забрать устройство на месте или нужна доставка?</span><span class="plus">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Возможен приём устройства лично, а также выезд по адресу — уточняется при оформлении заявки.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span>Даёте ли вы гарантию на ремонт?</span><span class="plus">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Да, на все выполненные работы предоставляется гарантия. Её срок зависит от типа ремонта и озвучивается заранее.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span>Что если данные с диска не восстановить?</span><span class="plus">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Провожу предварительную оценку шансов на восстановление до начала работ и честно предупреждаю о рисках.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-inner">
+    <div class="logo"><span class="logo-mark"></span>SLAVON<span>&nbsp;PC</span></div>
+    <div class="mono">© 2026 Slavon PC — ремонт компьютеров и ноутбуков</div>
+  </div>
+</footer>
+
+<script>
+  /* ====================================================================
+     ИНТЕГРАЦИЯ С TELEGRAM
+     1. Создайте бота через @BotFather в Telegram, получите TOKEN.
+     2. Напишите боту любое сообщение, затем откройте в браузере:
+        https://api.telegram.org/bot<TOKEN>/getUpdates
+        и найдите "chat":{"id": ... } — это ваш CHAT_ID.
+        (Или узнайте свой ID у бота @userinfobot)
+     3. Подставьте значения ниже.
+  ==================================================================== */
+  const TELEGRAM_BOT_TOKEN = 'ВАШ_ТОКЕН_БОТА';
+  const TELEGRAM_CHAT_ID   = 'ВАШ_CHAT_ID';
+
+  const form = document.getElementById('leadForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const formMsg = document.getElementById('formMsg');
+
+  function setFieldError(fieldId, show){
+    const field = document.getElementById(fieldId);
+    field.classList.toggle('invalid', show);
+    const err = field.querySelector('.field-error');
+    if(err) err.classList.toggle('show', show);
+  }
+
+  function showMsg(text, type){
+    formMsg.textContent = text;
+    formMsg.className = 'form-msg show ' + type;
+  }
+
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    formMsg.classList.remove('show');
+
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const device = document.getElementById('device').value;
+    const problem = document.getElementById('problem').value.trim();
+    const consent = document.getElementById('consent').checked;
+
+    let valid = true;
+    setFieldError('field-name', false);
+    setFieldError('field-phone', false);
+    document.getElementById('consent-error').classList.remove('show');
+
+    if(name.length < 2){ setFieldError('field-name', true); valid = false; }
+
+    const phoneDigits = phone.replace(/\D/g, '');
+    if(phoneDigits.length < 10){ setFieldError('field-phone', true); valid = false; }
+
+    if(!consent){
+      document.getElementById('consent-error').classList.add('show');
+      valid = false;
+    }
+
+    if(!valid) return;
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Отправка…';
+
+    const text =
+      '🖥 *Новая заявка — Slavon PC*\n\n' +
+      '*Имя:* ' + name + '\n' +
+      '*Телефон:* ' + phone + '\n' +
+      '*Устройство:* ' + device + '\n' +
+      '*Проблема:* ' + (problem || '—') + '\n' +
+      '*Согласие на обработку ПД:* да\n' +
+      '*Время:* ' + new Date().toLocaleString('ru-RU');
+
+    try{
+      if(TELEGRAM_BOT_TOKEN === 'ВАШ_ТОКЕН_БОТА'){
+        throw new Error('NOT_CONFIGURED');
+      }
+
+      const res = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: TELEGRAM_CHAT_ID,
+          text: text,
+          parse_mode: 'Markdown'
+        })
+      });
+
+      const data = await res.json();
+      if(!data.ok) throw new Error(data.description || 'TELEGRAM_ERROR');
+
+      showMsg('Заявка отправлена! Я свяжусь с вами в ближайшее время.', 'ok');
+      form.reset();
+
+    }catch(err){
+      if(err.message === 'NOT_CONFIGURED'){
+        showMsg('Форма ещё не подключена к Telegram: заполните TELEGRAM_BOT_TOKEN и TELEGRAM_CHAT_ID в коде страницы.', 'err');
+      } else {
+        showMsg('Не удалось отправить заявку. Попробуйте ещё раз или напишите напрямую в Telegram.', 'err');
+      }
+      console.error(err);
+    }finally{
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Отправить заявку';
+    }
+  });
+
+  /* FAQ accordion */
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.querySelector('.faq-q').addEventListener('click', () => {
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+      if(!wasOpen) item.classList.add('open');
+    });
+  });
+
+  /* Scroll reveal */
+  if('IntersectionObserver' in window){
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  } else {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+  }
+</script>
+</body>
+</html>
