@@ -698,6 +698,13 @@
     <div class="services-grid">
       <div class="service-card reveal">
         <div class="service-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="6" y="3" width="12" height="18" rx="2" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="7" r="1" fill="currentColor"/><path d="M9 11h6M9 14h6M9 17h3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Сборка ПК под ключ</h3>
+        <p>Подберу нужную конфигурацию для ваших задач, соберу, установлю систему и настрою биос.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="12" rx="1.5" stroke="currentColor" stroke-width="1.7"/><path d="M8 20h8M12 16v4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
         </div>
         <h3>Ремонт ноутбуков и ПК</h3>
@@ -721,8 +728,8 @@
         <div class="service-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="4" y="3" width="16" height="14" rx="1.5" stroke="currentColor" stroke-width="1.7"/><path d="M9 21h6M12 17v4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
         </div>
-        <h3>Замена экрана, клавиатуры, разъёмов</h3>
-        <p>Треснувший экран, залипающие клавиши, разболтанный разъём зарядки — заменю на оригинальные или аналогичные детали.</p>
+        <h3>Замена экрана, клавиатуры</h3>
+        <p>Треснувший экран, залипающие клавиши — заменю на оригинальные или аналогичные детали.</p>
       </div>
       <div class="service-card reveal">
         <div class="service-icon">
@@ -730,13 +737,6 @@
         </div>
         <h3>Вирусы и настройка ОС</h3>
         <p>Удаляю вирусы и рекламное ПО, переустанавливаю Windows, настраиваю систему с нуля.</p>
-      </div>
-      <div class="service-card reveal">
-        <div class="service-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 12l4-8 4 8-4 8-4-8z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M13 12l4-8 4 8-4 8-4-8z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
-        </div>
-        <h3>Сложные и редкие поломки</h3>
-        <p>Залитие, короткое замыкание, нестандартная диагностика — берусь за случаи, от которых отказались другие.</p>
       </div>
     </div>
   </div>
@@ -987,13 +987,13 @@
     submitBtn.textContent = 'Отправка…';
 
     const text =
-      '🖥 *Новая заявка — Slavon PC*\n\n' +
-      '*Имя:* ' + name + '\n' +
-      '*Телефон:* ' + phone + '\n' +
-      '*Устройство:* ' + device + '\n' +
-      '*Проблема:* ' + (problem || '—') + '\n' +
-      '*Согласие на обработку ПД:* да\n' +
-      '*Время:* ' + new Date().toLocaleString('ru-RU');
+      '🖥 Новая заявка — Slavon PC\n\n' +
+      'Имя: ' + name + '\n' +
+      'Телефон: ' + phone + '\n' +
+      'Устройство: ' + device + '\n' +
+      'Проблема: ' + (problem || '—') + '\n' +
+      'Согласие на обработку ПД: да\n' +
+      'Время: ' + new Date().toLocaleString('ru-RU');
 
     try{
       if(TELEGRAM_BOT_TOKEN === 'ВАШ_ТОКЕН_БОТА'){
@@ -1005,8 +1005,7 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           chat_id: TELEGRAM_CHAT_ID,
-          text: text,
-          parse_mode: 'Markdown'
+          text: text
         })
       });
 
@@ -1020,7 +1019,7 @@
       if(err.message === 'NOT_CONFIGURED'){
         showMsg('Форма ещё не подключена к Telegram: заполните TELEGRAM_BOT_TOKEN и TELEGRAM_CHAT_ID в коде страницы.', 'err');
       } else {
-        showMsg('Не удалось отправить заявку. Попробуйте ещё раз или напишите напрямую в Telegram.', 'err');
+        showMsg('Не удалось отправить заявку: ' + err.message, 'err');
       }
       console.error(err);
     }finally{
