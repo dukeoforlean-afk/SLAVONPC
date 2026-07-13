@@ -4,23 +4,27 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Slavon PC — ремонт компьютеров и ноутбуков</title>
+<link rel="icon" type="image/png" href="slavon-pc-logo.png">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
   :root{
-    --bg:#12151a;
-    --bg-alt:#171b22;
-    --surface:#1e232b;
-    --surface-2:#242a33;
-    --border:#2c333d;
-    --border-soft:#252b34;
-    --copper:#e8a33d;
-    --copper-dim:#c97a3e;
-    --green:#4cd97b;
-    --red:#ff6b5c;
-    --text:#eceef1;
-    --text-dim:#9aa3af;
-    --text-mute:#6b7280;
+    --bg:#0a0c16;
+    --bg-alt:#0d0f1e;
+    --surface:#141830;
+    --surface-2:#1b2040;
+    --border:#282e52;
+    --border-soft:#1f2440;
+    --cyan:#2fd9ff;
+    --cyan-dim:#1aa8cc;
+    --purple:#c750ff;
+    --purple-dim:#9b3fe0;
+    --brand-gradient:linear-gradient(135deg, var(--cyan), var(--purple));
+    --green:#3dffa8;
+    --red:#ff4d7a;
+    --text:#eef0fa;
+    --text-dim:#9aa0c4;
+    --text-mute:#666b91;
     --radius:14px;
     --maxw:1180px;
   }
@@ -63,7 +67,7 @@
     font-size:12.5px;
     letter-spacing:0.14em;
     text-transform:uppercase;
-    color:var(--copper);
+    color:var(--cyan);
     display:flex;
     align-items:center;
     gap:10px;
@@ -71,7 +75,7 @@
   .eyebrow::before{
     content:"";
     width:7px; height:7px;
-    background:var(--copper);
+    background:var(--cyan);
     border-radius:2px;
     flex:none;
   }
@@ -79,7 +83,7 @@
   /* ---------- Header ---------- */
   header{
     position:sticky; top:0; z-index:50;
-    background:rgba(18,21,26,0.86);
+    background:rgba(10,12,22,0.86);
     backdrop-filter:blur(10px);
     border-bottom:1px solid var(--border-soft);
   }
@@ -96,18 +100,9 @@
     letter-spacing:-0.01em;
     display:flex; align-items:center; gap:9px;
   }
-  .logo-mark{
-    width:26px; height:26px;
-    border-radius:6px;
-    background:linear-gradient(145deg, var(--copper), var(--copper-dim));
-    position:relative;
+  .logo-img{
+    width:34px; height:34px;
     flex:none;
-  }
-  .logo-mark::after{
-    content:"";
-    position:absolute; inset:6px;
-    border:1.5px solid rgba(18,21,26,0.55);
-    border-radius:2px;
   }
   .logo span{color:var(--text-dim); font-weight:600; font-size:15px;}
   .nav-links{
@@ -116,17 +111,17 @@
   }
   .nav-links a:hover{color:var(--text);}
   .nav-cta{
-    background:var(--copper);
-    color:#161310;
+    background:var(--brand-gradient);
+    color:#0a0c16;
     padding:10px 20px;
     border-radius:9px;
     font-weight:700;
     font-size:14px;
     border:none;
-    transition:transform .15s ease, background .15s ease;
+    transition:transform .15s ease, filter .15s ease;
     white-space:nowrap;
   }
-  .nav-cta:hover{background:#f0ae4c;}
+  .nav-cta:hover{filter:brightness(1.12);}
   .nav-cta:active{transform:scale(0.97);}
   @media(max-width:820px){ .nav-links{display:none;} }
 
@@ -150,7 +145,8 @@
   }
   .hero h1 em{
     font-style:normal;
-    color:var(--copper);
+    color:var(--purple);
+    text-shadow:0 0 26px rgba(199,80,255,0.35);
   }
   .hero p.lead{
     font-size:clamp(15.5px, 2vw, 18px);
@@ -163,18 +159,18 @@
     margin-bottom:34px;
   }
   .btn-primary{
-    background:var(--copper);
-    color:#161310;
+    background:var(--brand-gradient);
+    color:#0a0c16;
     padding:15px 26px;
     border-radius:10px;
     font-weight:700;
     font-size:15.5px;
     border:none;
-    box-shadow:0 8px 24px -8px rgba(232,163,61,0.5);
-    transition:transform .15s ease, box-shadow .15s ease;
+    box-shadow:0 8px 28px -8px rgba(199,80,255,0.5);
+    transition:transform .15s ease, box-shadow .15s ease, filter .15s ease;
     min-height:48px;
   }
-  .btn-primary:hover{ box-shadow:0 10px 28px -6px rgba(232,163,61,0.65); }
+  .btn-primary:hover{ box-shadow:0 10px 32px -6px rgba(47,217,255,0.55); filter:brightness(1.08); }
   .btn-primary:active{ transform:scale(0.97); }
   .btn-secondary{
     background:transparent;
@@ -187,7 +183,7 @@
     min-height:48px;
     transition:border-color .15s ease, background .15s ease;
   }
-  .btn-secondary:hover{ border-color:var(--copper); background:rgba(232,163,61,0.06); }
+  .btn-secondary:hover{ border-color:var(--cyan); background:rgba(47,217,255,0.06); }
 
   .hero-stats{
     display:flex; gap:28px; flex-wrap:wrap;
@@ -209,7 +205,7 @@
     border:1px solid var(--border);
     border-radius:16px;
     overflow:hidden;
-    box-shadow:0 30px 60px -25px rgba(0,0,0,0.6);
+    box-shadow:0 30px 60px -25px rgba(0,0,0,0.6), 0 0 60px -20px rgba(199,80,255,0.18), 0 0 60px -30px rgba(47,217,255,0.15);
   }
   .terminal-bar{
     display:flex; align-items:center; gap:8px;
@@ -261,10 +257,10 @@
     animation-delay:2.3s;
   }
   .term-summary .err-count{ color:var(--red); font-weight:700; }
-  .term-summary .fix{ color:var(--copper); font-weight:700; }
+  .term-summary .fix{ color:var(--purple); font-weight:700; }
   .cursor{
     display:inline-block; width:7px; height:14px;
-    background:var(--copper);
+    background:var(--purple);
     margin-left:2px;
     animation:blink 1s step-end infinite;
     vertical-align:middle;
@@ -319,14 +315,14 @@
     padding:26px 22px;
     transition:border-color .18s ease, transform .18s ease;
   }
-  .service-card:hover{ border-color:var(--copper-dim); transform:translateY(-3px); }
+  .service-card:hover{ border-color:var(--cyan-dim); transform:translateY(-3px); }
   .service-icon{
     width:42px; height:42px;
     border-radius:10px;
     background:var(--surface-2);
     display:flex; align-items:center; justify-content:center;
     margin-bottom:16px;
-    color:var(--copper);
+    color:var(--cyan);
   }
   .service-card h3{
     font-family:'Manrope', sans-serif;
@@ -360,7 +356,7 @@
   .step-num{
     font-family:'JetBrains Mono', monospace;
     font-size:13px;
-    color:var(--copper);
+    color:var(--purple);
     background:var(--surface);
     border:1px solid var(--border);
     width:46px; height:46px;
@@ -413,7 +409,7 @@
     border-bottom:1px solid var(--border-soft);
   }
   .panel-row:last-child{ border-bottom:none; }
-  .panel-row b{ font-family:'Unbounded'; font-size:22px; color:var(--copper); }
+  .panel-row b{ font-family:'Unbounded'; font-size:22px; color:var(--cyan); }
   .panel-row span{ font-size:13px; color:var(--text-dim); text-align:right; max-width:60%; }
 
   /* ---------- Lead form ---------- */
@@ -478,7 +474,7 @@
   .field textarea{ resize:vertical; min-height:88px; font-family:'Manrope', sans-serif; }
   .field input:focus,
   .field select:focus,
-  .field textarea:focus{ border-color:var(--copper); }
+  .field textarea:focus{ border-color:var(--cyan); }
   .field input::placeholder,
   .field textarea::placeholder{ color:var(--text-mute); }
 
@@ -503,20 +499,20 @@
     transition:border-color .15s ease, background .15s ease;
   }
   .consent input[type="checkbox"]:checked{
-    background:var(--copper);
-    border-color:var(--copper);
+    background:var(--brand-gradient);
+    border-color:var(--purple);
   }
   .consent input[type="checkbox"]:checked::after{
     content:"";
     position:absolute;
     left:6px; top:2px;
     width:5px; height:10px;
-    border:solid #161310;
+    border:solid #0a0c16;
     border-width:0 2px 2px 0;
     transform:rotate(45deg);
   }
   .consent input[type="checkbox"]:focus-visible{
-    outline:2px solid var(--copper);
+    outline:2px solid var(--cyan);
     outline-offset:2px;
   }
   .consent span{
@@ -524,21 +520,21 @@
     color:var(--text-dim);
     line-height:1.5;
   }
-  .consent a{ color:var(--copper); text-decoration:underline; text-underline-offset:2px; }
+  .consent a{ color:var(--cyan); text-decoration:underline; text-underline-offset:2px; }
 
   .submit-btn{
     width:100%;
-    background:var(--copper);
-    color:#161310;
+    background:var(--brand-gradient);
+    color:#0a0c16;
     padding:16px;
     border:none;
     border-radius:10px;
     font-weight:800;
     font-size:15.5px;
     min-height:52px;
-    transition:background .15s ease, transform .15s ease, opacity .15s ease;
+    transition:filter .15s ease, transform .15s ease, opacity .15s ease;
   }
-  .submit-btn:hover{ background:#f0ae4c; }
+  .submit-btn:hover{ filter:brightness(1.1); }
   .submit-btn:active{ transform:scale(0.98); }
   .submit-btn:disabled{ opacity:0.6; cursor:not-allowed; }
 
@@ -578,7 +574,7 @@
   }
   .faq-q .plus{
     font-family:'JetBrains Mono', monospace;
-    color:var(--copper);
+    color:var(--cyan);
     font-size:18px;
     transition:transform .2s ease;
     flex:none;
@@ -615,7 +611,7 @@
 
 <header>
   <div class="nav">
-    <div class="logo"><span class="logo-mark"></span>SLAVON<span>&nbsp;PC</span></div>
+    <div class="logo">SLAVON<span>&nbsp;PC</span></div>
     <nav class="nav-links">
       <a href="#services">Услуги</a>
       <a href="#process">Как это работает</a>
@@ -891,7 +887,7 @@
 
 <footer>
   <div class="wrap footer-inner">
-    <div class="logo"><span class="logo-mark"></span>SLAVON<span>&nbsp;PC</span></div>
+    <div class="logo">SLAVON<span>&nbsp;PC</span></div>
     <div class="mono">© 2026 Slavon PC — ремонт компьютеров и ноутбуков</div>
   </div>
 </footer>
