@@ -1022,16 +1022,12 @@
 
 <script>
   /* ====================================================================
-     ИНТЕГРАЦИЯ С TELEGRAM
-     1. Создайте бота через @BotFather в Telegram, получите TOKEN.
-     2. Напишите боту любое сообщение, затем откройте в браузере:
-        https://api.telegram.org/bot<TOKEN>/getUpdates
-        и найдите "chat":{"id": ... } — это ваш CHAT_ID.
-        (Или узнайте свой ID у бота @userinfobot)
-     3. Подставьте значения ниже.
+     ОТПРАВКА ЗАЯВОК ЧЕРЕЗ CLOUDFLARE WORKER
+     Токен бота больше не хранится в коде страницы — он лежит в настройках
+     Worker'а на Cloudflare, а сюда подставляется только адрес Worker'а.
+     Как получить адрес — см. инструкцию, которую прислал Claude.
   ==================================================================== */
-  const TELEGRAM_BOT_TOKEN = '8934669616:AAE9wR1KtWuaQoA0xArfrHH2O_oPR99JtN4';
-  const TELEGRAM_CHAT_ID   = '352178069';
+  const WORKER_URL = 'https://slavonpc-leads.dukeoforlean.workers.dev';
 
   const form = document.getElementById('leadForm');
   const submitBtn = document.getElementById('submitBtn');
@@ -1089,28 +1085,25 @@
       'Время: ' + new Date().toLocaleString('ru-RU');
 
     try{
-      if(TELEGRAM_BOT_TOKEN === 'ВАШ_ТОКЕН_БОТА'){
+      if(WORKER_URL === 'ВАШ_АДРЕС_WORKER'){
         throw new Error('NOT_CONFIGURED');
       }
 
-      const res = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+      const res = await fetch(WORKER_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          chat_id: TELEGRAM_CHAT_ID,
-          text: text
-        })
+        body: JSON.stringify({ text: text })
       });
 
       const data = await res.json();
-      if(!data.ok) throw new Error(data.description || 'TELEGRAM_ERROR');
+      if(!data.ok) throw new Error(data.error || 'Ошибка отправки');
 
       showMsg('Заявка отправлена! Я свяжусь с вами в ближайшее время.', 'ok');
       form.reset();
 
     }catch(err){
       if(err.message === 'NOT_CONFIGURED'){
-        showMsg('Форма ещё не подключена к Telegram: заполните TELEGRAM_BOT_TOKEN и TELEGRAM_CHAT_ID в коде страницы.', 'err');
+        showMsg('Форма ещё не подключена: заполните WORKER_URL в коде страницы.', 'err');
       } else {
         showMsg('Не удалось отправить заявку: ' + err.message, 'err');
       }
