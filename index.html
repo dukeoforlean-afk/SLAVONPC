@@ -80,6 +80,29 @@
     flex:none;
   }
 
+  /* ---------- Appointment banner ---------- */
+  .appointment-banner{
+    background:var(--surface);
+    border-bottom:1px solid var(--border-soft);
+    padding:11px 24px;
+  }
+  .appointment-banner-inner{
+    max-width:var(--maxw);
+    margin:0 auto;
+    display:flex; align-items:center; justify-content:center;
+    gap:9px;
+    text-align:center;
+    flex-wrap:wrap;
+  }
+  .appointment-banner svg{ flex:none; color:var(--purple); }
+  .appointment-banner p{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    color:var(--text-dim);
+    letter-spacing:0.01em;
+  }
+  .appointment-banner strong{ color:var(--text); font-weight:700; }
+
   /* ---------- Header ---------- */
   header{
     position:sticky; top:0; z-index:50;
@@ -760,6 +783,13 @@
   </nav>
 </header>
 
+<div class="appointment-banner">
+  <div class="appointment-banner-inner">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M3 9h18M8 2v4M16 2v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    <p>Работаем <strong>строго по предварительной записи</strong> — позвоните или оставьте заявку перед визитом в мастерскую</p>
+  </div>
+</div>
+
 <section class="hero">
   <div class="wrap hero-grid">
     <div>
@@ -990,7 +1020,7 @@
     <div class="form-side reveal">
       <div class="eyebrow">ЗАЯВКА</div>
       <h2>Опишите проблему — я отвечу с оценкой стоимости</h2>
-      <p>Оставьте контакты и коротко опишите, что случилось с устройством. Отвечаю в течение рабочего дня.</p>
+      <p>Оставьте контакты и коротко опишите, что случилось с устройством. Отвечаю в течение рабочего дня — согласуем удобное время визита. <strong style="color:var(--text);">Приём в мастерской — только по записи.</strong></p>
       <div class="contact-line">
         <span class="lbl mono">ТЕЛ:</span> +7 995 443-13-37
       </div>
@@ -1064,7 +1094,7 @@
       </div>
       <div class="faq-item">
         <div class="faq-q"><span>Можно ли забрать устройство на месте или нужна доставка?</span><span class="plus">+</span></div>
-        <div class="faq-a"><div class="faq-a-inner">Все работы выполняются в нашей мастерской. Забор и доставка устройства возможны за отдельную плату.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Все работы выполняются в нашей мастерской, приём — строго по предварительной записи. Забор и доставка устройства возможны за отдельную плату.</div></div>
       </div>
       <div class="faq-item">
         <div class="faq-q"><span>Даёте ли вы гарантию на ремонт?</span><span class="plus">+</span></div>
