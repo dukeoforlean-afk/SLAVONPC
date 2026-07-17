@@ -1219,6 +1219,10 @@
       const data = await res.json();
       if(!data.ok) throw new Error(data.error || 'Ошибка отправки');
 
+      if(typeof ym === 'function'){
+        ym(110809257, 'reachGoal', 'lead_form_submit');
+      }
+
       showMsg('Заявка отправлена! Я свяжусь с вами в ближайшее время.', 'ok');
       form.reset();
 
